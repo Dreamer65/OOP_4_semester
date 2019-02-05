@@ -51,25 +51,30 @@ namespace Conway_s_Game_Of_Life
 
             for (int i = 0; i < rowsCount; i++)
                 for (int j = 0; j < colomnsCount; j++) {
-                    int neighborsCount = NeighborsCount(i, j);
-                    nextGeneration[i, j] = false;
-
-                    if (!generation[i, j] && neighborsCount == 3) {
-                        nextGeneration[i, j] = true;
-                        isDead = false;
-                    }
-                    if (generation[i, j] && (neighborsCount == 2 || neighborsCount == 3)) {
-                        nextGeneration[i, j] = true;
-                        isDead = false;
-                    }
+                    nextGeneration[i, j] = IsAlive(i, j);
 
                     if (nextGeneration[i, j] != generation[i, j])
                         isStable = false;
                     if (nextGeneration[i, j] != prevGeneration[i, j])
                         isLoop = false;
+                    if (nextGeneration[i, j])
+                        isDead = false;
                 }
             prevGeneration = generation;
             generation = nextGeneration;
+        }
+
+        private bool IsAlive(int row, int colomn)
+        {
+            int neighborsCount = NeighborsCount(row, colomn);
+
+            if (!generation[row, colomn] && neighborsCount == 3) {
+                return true;
+            }
+            if (generation[row, colomn] && (neighborsCount == 2 || neighborsCount == 3)) {
+                return true;
+            }
+            return false;
         }
 
         private int NeighborsCount(int row, int colomn)
