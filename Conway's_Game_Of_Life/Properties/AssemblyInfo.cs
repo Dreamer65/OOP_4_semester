@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Conway's_Game_Of_Live")]
+[assembly: AssemblyTitle("Conway's_Game_Of_Life")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Conway's_Game_Of_Live")]
+[assembly: AssemblyProduct("Conway's_Game_Of_Life")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("644b67e8-a06a-486e-87d2-ea9c9343f5f1")]
+[assembly: Guid("51b5daf1-1408-4d3e-b3b1-cb795def5134")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

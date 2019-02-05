@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Conway_s_Game_Of_Live
+namespace Conway_s_Game_Of_Life
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Conway_s_Game_Of_Live
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }

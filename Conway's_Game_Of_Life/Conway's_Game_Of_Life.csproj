@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{644B67E8-A06A-486E-87D2-EA9C9343F5F1}</ProjectGuid>
+    <ProjectGuid>{51B5DAF1-1408-4D3E-B3B1-CB795DEF5134}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Conway_s_Game_Of_Live</RootNamespace>
-    <AssemblyName>Conway%27s_Game_Of_Live</AssemblyName>
+    <RootNamespace>Conway_s_Game_Of_Life</RootNamespace>
+    <AssemblyName>Conway%27s_Game_Of_Life</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -51,8 +51,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

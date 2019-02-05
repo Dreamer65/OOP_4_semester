@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Conway_s_Game_Of_Live.Properties
+namespace Conway_s_Game_Of_Life.Properties
 {
 
 
@@ -42,7 +42,7 @@ namespace Conway_s_Game_Of_Live.Properties
         {
             get {
                 if ((resourceMan == null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Conway_s_Game_Of_Live.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Conway_s_Game_Of_Life.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

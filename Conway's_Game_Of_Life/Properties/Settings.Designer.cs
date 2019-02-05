@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Conway_s_Game_Of_Live.Properties
+namespace Conway_s_Game_Of_Life.Properties
 {
 
 
