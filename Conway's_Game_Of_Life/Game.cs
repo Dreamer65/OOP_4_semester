@@ -12,6 +12,7 @@ namespace Conway_s_Game_Of_Life
         private bool[,] prevGeneration;
         private int rowsCount;
         private int colomnsCount;
+        private int alives;
         private bool isDead;
         private bool isLoop;
         private bool isStable;
@@ -25,11 +26,35 @@ namespace Conway_s_Game_Of_Life
             isDead = false;
             isLoop = false;
             isStable = false;
+            alives = 0;
         }
 
         public bool IsDead { get => isDead; }
         public bool IsLoop { get => isLoop; }
         public bool IsStable { get => isStable; }
+        public int Alives { get => alives; }
+        public int Length { get => GameMap.Length; }
+
+        public int RowsCount { get => rowsCount; }
+        public int ColomnsCount { get => colomnsCount; }
+
+        public bool this[int row, int colomn]
+        {
+            get => generation[row, colomn];
+            set {
+                generation[row, colomn] = value;
+                prevGeneration = new bool[rowsCount, colomnsCount];
+            }
+        }
+
+        public bool this[System.Drawing.Point location]
+        {
+            get => generation[location.X, location.Y];
+            set {
+                generation[location.X, location.Y] = value;
+                prevGeneration = new bool[rowsCount, colomnsCount];
+            }
+        }
 
         public bool[,] GameMap
         {
@@ -38,8 +63,16 @@ namespace Conway_s_Game_Of_Life
                 generation = value;
                 rowsCount = generation.GetLength(0);
                 colomnsCount = generation.GetLength(1);
-                prevGeneration = new bool[rowsCount, colomnsCount];
+                alives = 0;
+                foreach (bool cell in generation)
+                    if (cell)
+                        alives++;
             }
+        }
+        public bool[,] OldMap
+        {
+            get => prevGeneration;
+            
         }
 
         public void NextGeneration()
@@ -48,6 +81,7 @@ namespace Conway_s_Game_Of_Life
             isDead = true;
             isLoop = true;
             isStable = true;
+            alives = 0;
 
             for (int i = 0; i < rowsCount; i++)
                 for (int j = 0; j < colomnsCount; j++) {
@@ -69,9 +103,11 @@ namespace Conway_s_Game_Of_Life
             int neighborsCount = NeighborsCount(row, colomn);
 
             if (!generation[row, colomn] && neighborsCount == 3) {
+                alives++;
                 return true;
             }
             if (generation[row, colomn] && (neighborsCount == 2 || neighborsCount == 3)) {
+                alives++;
                 return true;
             }
             return false;
@@ -85,8 +121,8 @@ namespace Conway_s_Game_Of_Life
             row = (row - 1 < 0) ? rowsCount - 1 : row - 1;
             colomn = (colomn - 1 < 0) ? colomnsCount - 1 : colomn - 1;
 
-            for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 2; j++)  {
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)  {
                     if (i == 1 && j == 1)
                         continue;
                     if (generation[(row + i)%rowsCount, (colomn + j) % colomnsCount])
