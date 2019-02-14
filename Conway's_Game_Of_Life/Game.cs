@@ -49,9 +49,9 @@ namespace Conway_s_Game_Of_Life
 
         public bool this[System.Drawing.Point location]
         {
-            get => generation[location.X, location.Y];
+            get => generation[location.Y, location.X];
             set {
-                generation[location.X, location.Y] = value;
+                generation[location.Y, location.X] = value;
                 prevGeneration = new bool[rowsCount, colomnsCount];
             }
         }
@@ -73,6 +73,16 @@ namespace Conway_s_Game_Of_Life
         {
             get => prevGeneration;
             
+        }
+
+        public void Random()
+        {
+            Random random = new Random();
+            for (int i = 0; i < rowsCount; i++)
+                for (int j = 0; j < colomnsCount; j++) {
+                    if (random.Next() % 2 == 0)
+                        generation[i, j] = true;
+                }
         }
 
         public void NextGeneration()

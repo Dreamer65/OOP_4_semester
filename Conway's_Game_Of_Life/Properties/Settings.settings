@@ -12,7 +12,22 @@
       <Value Profile="(Default)">Control</Value>
     </Setting>
     <Setting Name="gridThickness" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="mouseAlive" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">WindowFrame</Value>
+    </Setting>
+    <Setting Name="mouseDead" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Silver</Value>
+    </Setting>
+    <Setting Name="colonyIsDeadMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Вся колония умерла.</Value>
+    </Setting>
+    <Setting Name="colonyIsAliveMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Колония приняла стабильное состояние.</Value>
+    </Setting>
+    <Setting Name="colonyIsLoopMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Колония перешла в цикличное состояние</Value>
     </Setting>
   </Settings>
 </SettingsFile>

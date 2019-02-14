@@ -61,13 +61,64 @@ namespace Conway_s_Game_Of_Life.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool gridThickness {
             get {
                 return ((bool)(this["gridThickness"]));
             }
             set {
                 this["gridThickness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("WindowFrame")]
+        public global::System.Drawing.Color mouseAlive {
+            get {
+                return ((global::System.Drawing.Color)(this["mouseAlive"]));
+            }
+            set {
+                this["mouseAlive"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Silver")]
+        public global::System.Drawing.Color mouseDead {
+            get {
+                return ((global::System.Drawing.Color)(this["mouseDead"]));
+            }
+            set {
+                this["mouseDead"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Вся колония умерла.")]
+        public string colonyIsDeadMessage {
+            get {
+                return ((string)(this["colonyIsDeadMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Колония приняла стабильное состояние.")]
+        public string colonyIsAliveMessage {
+            get {
+                return ((string)(this["colonyIsAliveMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Колония перешла в цикличное состояние")]
+        public string colonyIsLoopMessage {
+            get {
+                return ((string)(this["colonyIsLoopMessage"]));
             }
         }
     }
