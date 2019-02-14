@@ -107,9 +107,9 @@ namespace Conway_s_Game_Of_Life.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Колония приняла стабильное состояние.")]
-        public string colonyIsAliveMessage {
+        public string colonyIsStableMessage {
             get {
-                return ((string)(this["colonyIsAliveMessage"]));
+                return ((string)(this["colonyIsStableMessage"]));
             }
         }
         

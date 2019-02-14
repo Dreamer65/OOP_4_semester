@@ -34,7 +34,6 @@
             this.lbnudRows = new System.Windows.Forms.Label();
             this.lbnudColomns = new System.Windows.Forms.Label();
             this.savefdMap = new System.Windows.Forms.SaveFileDialog();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tbInterval = new System.Windows.Forms.TrackBar();
             this.pbRandom = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picbGenerationMap)).BeginInit();
@@ -140,20 +139,6 @@
             this.lbnudColomns.TabIndex = 3;
             this.lbnudColomns.Text = "Столбцы";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(620, 100);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // tbInterval
             // 
             this.tbInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -169,6 +154,7 @@
             // 
             // pbRandom
             // 
+            this.pbRandom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbRandom.Location = new System.Drawing.Point(624, 183);
             this.pbRandom.Name = "pbRandom";
             this.pbRandom.Size = new System.Drawing.Size(163, 25);
@@ -185,7 +171,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pbRandom);
             this.Controls.Add(this.tbInterval);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.lbnudColomns);
             this.Controls.Add(this.lbnudRows);
             this.Controls.Add(this.nudColomns);
@@ -214,7 +199,6 @@
         private System.Windows.Forms.Label lbnudRows;
         private System.Windows.Forms.Label lbnudColomns;
         private System.Windows.Forms.SaveFileDialog savefdMap;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TrackBar tbInterval;
         private System.Windows.Forms.Button pbRandom;
     }

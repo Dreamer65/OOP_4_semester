@@ -1,4 +1,4 @@
-﻿#undef DEBUG
+﻿//#undef DEBUG
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +25,7 @@ namespace Conway_s_Game_Of_Life
         private MapRenderer.LayoutF layout;
 
         private Thread tickGenerator;
-        private ManualResetEventSlim resetEvent = new ManualResetEventSlim(false);
+        private ManualResetEventSlim threadSync = new ManualResetEventSlim(false);
         private ManualResetEventSlim refreshSync = new ManualResetEventSlim(true);
 
         // DEBUG
@@ -40,6 +40,11 @@ namespace Conway_s_Game_Of_Life
         public MainForm()
         {
             InitializeComponent();
+#if !DEBUG
+            DEBUG_STATUS.Location = new Point(615, 400);
+            DEBUG_STATUS.Anchor = pbStartStop.Anchor;
+            this.Controls.Add(DEBUG_STATUS);
+#endif
             mapSizeChenged = true;
             game = new Game((int)nudRows.Value, (int)nudColomns.Value);
             game.Random();
@@ -57,29 +62,21 @@ namespace Conway_s_Game_Of_Life
             tickGenerator.Start();
 
             mapSizeChenged = false;
-
-#if !DEBUG
-            DEBUG_STATUS.Location = new Point(615, 400);
-            DEBUG_STATUS.Anchor = pbStartStop.Anchor;
-            this.Controls.Add(DEBUG_STATUS);
-#endif
         }
 
         private void pbStartStop_Click(object sender, EventArgs e)
         {
-            if (!resetEvent.IsSet) {
-                //generationTimer.Start();
+            if (!threadSync.IsSet) {
                 pbStartStop.Text = pbStartStopStatus[1];
                 nudColomns.Enabled = false;
                 nudRows.Enabled = false;
-                resetEvent.Set();
+                threadSync.Set();
             }
             else {
-                //generationTimer.Stop();
                 pbStartStop.Text = pbStartStopStatus[2];
                 nudColomns.Enabled = true;
                 nudRows.Enabled = true;
-                resetEvent.Reset();
+                threadSync.Reset();
             }
         }
 
@@ -122,6 +119,24 @@ namespace Conway_s_Game_Of_Life
 #endif
             refreshSync.Reset();
             MapRenderer.RenderMapF(e.Graphics, game, layout, style);
+            if (threadSync.IsSet && game.State != Game.GameStates.Alive) {
+                switch (game.State) {
+                    case Game.GameStates.Dead: {
+                            MessageBox.Show(Properties.Settings.Default.colonyIsDeadMessage);
+                            break;
+                        }
+                    case Game.GameStates.Loop: {
+                            MessageBox.Show(Properties.Settings.Default.colonyIsLoopMessage);
+                            break;
+                        }
+                    case Game.GameStates.Stable: {
+                            MessageBox.Show(Properties.Settings.Default.colonyIsStableMessage);
+                            break;
+                        }
+                }
+                threadSync.Reset();
+                pbStartStop.Text = pbStartStopStatus[0];
+            }
             refreshSync.Set();
         }
 
@@ -132,15 +147,6 @@ namespace Conway_s_Game_Of_Life
             picbGenerationMap.Refresh();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            style.gridIsOn = ((CheckBox)sender).Checked;
-            layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
-            picbGenerationMap.Refresh();
-        }
-        
-
-
         private void IntervalMetod(Interval value)
         {
             value.Value = tbInterval.Value;
@@ -150,11 +156,11 @@ namespace Conway_s_Game_Of_Life
         {
             Interval interval = new Interval();
             while (true) {
-                resetEvent.Wait(); // Без этого прерывания потока может возникнуть ошибка BeginInvoke связанная с дескриптором окна
+                threadSync.Wait(); // Без этого прерывания потока может возникнуть ошибка BeginInvoke связанная с дескриптором окна
                 BeginInvoke(new IntervalValue(IntervalMetod), interval);
                 Thread.Sleep(interval.Value);
-                resetEvent.Wait(); // Повторное прерывание для более быстрой остановки
                 refreshSync.Wait();
+                threadSync.Wait(); // Повторное прерывание для более быстрой остановки
                 game.NextGeneration();
                 BeginInvoke(new RefreshForm(Refresh));
             }

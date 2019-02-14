@@ -23,7 +23,7 @@
     <Setting Name="colonyIsDeadMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Вся колония умерла.</Value>
     </Setting>
-    <Setting Name="colonyIsAliveMessage" Type="System.String" Scope="Application">
+    <Setting Name="colonyIsStableMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Колония приняла стабильное состояние.</Value>
     </Setting>
     <Setting Name="colonyIsLoopMessage" Type="System.String" Scope="Application">
