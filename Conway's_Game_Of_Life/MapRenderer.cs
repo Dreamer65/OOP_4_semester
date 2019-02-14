@@ -11,31 +11,53 @@ namespace Conway_s_Game_Of_Life
 {
     static class MapRenderer
     {
-        public struct VisualConfig
+        public struct Style
         {
-            public bool gridIsOn;
-            public bool gridIsVisible;
-            public Color gridColor;
-            public Color aliveCellColor;
-            public Color deadCellColor;
             private const int invert = 60;
 
-            public Color MouseAlive
+            private Color aliveCellColor;
+            private Color deadCellColor;
+
+            public bool GridIsOn { get; set; }
+            public bool GridIsVisible { get; set; }
+            public SolidBrush Grid { get; private set; }
+            public SolidBrush AliveCell { get; private set; }
+            public SolidBrush DeadCell { get; private set; }
+
+            public SolidBrush MouseAlive
             {
-                get => Color.FromArgb(aliveCellColor.A, Math.Abs(invert - aliveCellColor.R)%255,
-                    Math.Abs(invert -+ aliveCellColor.G) % 255, Math.Abs(invert - aliveCellColor.B) % 255);
-            }
-            public Color MouseDead
-            {
-                get => Color.FromArgb(deadCellColor.A, Math.Abs(invert - deadCellColor.R) % 255,
-                    Math.Abs(invert - deadCellColor.G) % 255, Math.Abs(invert - deadCellColor.B) % 255);
+                get => new SolidBrush(Color.FromArgb(aliveCellColor.A, Math.Abs(invert - aliveCellColor.R)%255,
+                    Math.Abs(invert -+ aliveCellColor.G) % 255, Math.Abs(invert - aliveCellColor.B) % 255));
             }
 
-            public Color this[bool cellStatus]
+            public SolidBrush MouseDead
             {
-                get => (cellStatus) ? aliveCellColor : deadCellColor;
+                get => new SolidBrush(Color.FromArgb(deadCellColor.A, Math.Abs(invert - deadCellColor.R) % 255,
+                    Math.Abs(invert - deadCellColor.G) % 255, Math.Abs(invert - deadCellColor.B) % 255));
+            }
+            
+            public SolidBrush this[bool cellStatus]
+            {
+                get => (cellStatus) ? AliveCell : DeadCell;
+            }
+            
+            public Color GridColor { set => Grid = new SolidBrush(value); }
+
+            public Color AliveCellColor {
+                set {
+                    aliveCellColor = value;
+                    AliveCell = new SolidBrush(value);
+                }
             }
 
+            public Color DeadCellColor
+            {
+                set {
+                    deadCellColor = value;
+                    DeadCell = new SolidBrush(value);
+                }
+            }
+            
         }
         
         public struct LayoutF
@@ -48,9 +70,9 @@ namespace Conway_s_Game_Of_Life
 
         private static int Grid(bool status) => (status) ? 1 : 0;
         
-        private static PointF RealLocationF(LayoutF layout, VisualConfig style, int row, int colomn)
+        private static PointF RealLocationF(LayoutF layout, Style style, int row, int colomn)
         {
-            int grid = Grid(style.gridIsVisible);
+            int grid = Grid(style.GridIsVisible);
             PointF result = new PointF((grid + layout.cellSize.Width) * colomn + grid,
                 (grid + layout.cellSize.Height) * row + grid);
             result.X += layout.zeroPivot.X - grid;
@@ -58,9 +80,9 @@ namespace Conway_s_Game_Of_Life
             return result;
         }
 
-        private static PointF RealLocationF(LayoutF layout, VisualConfig style, Point cellLocation)
+        private static PointF RealLocationF(LayoutF layout, Style style, Point cellLocation)
         {
-            int grid = Grid(style.gridIsVisible);
+            int grid = Grid(style.GridIsVisible);
             PointF result = new PointF((grid + layout.cellSize.Width) * cellLocation.X + grid,
                 (grid + layout.cellSize.Height) * cellLocation.Y + grid);
             result.X += layout.zeroPivot.X;
@@ -68,31 +90,29 @@ namespace Conway_s_Game_Of_Life
             return result;
         }
 
-        public static Point RelativeLocationF(LayoutF layout, VisualConfig style, Point location)
+        public static Point RelativeLocationF(LayoutF layout, Style style, Point location)
         {
-            int grid = Grid(style.gridIsVisible);
+            int grid = Grid(style.GridIsVisible);
             int x = (int)((location.X - layout.zeroPivot.X - grid) / (grid + layout.cellSize.Width));
             int y = (int)((location.Y - layout.zeroPivot.Y - grid) / (grid + layout.cellSize.Height));
             return new Point(x, y);
         }
 
-        public static void RenderSelectedCellF(Graphics graphics, Game map, LayoutF layout, VisualConfig style, int row, int colomn)
+        public static void RenderSelectedCellF(Graphics graphics, Game map, LayoutF layout, Style style, int row, int colomn)
         {
             PointF location = RealLocationF(layout, style, row, colomn);
-            graphics.FillRectangle(new SolidBrush(style[map[row, colomn]]),
+            graphics.FillRectangle(style[map[row, colomn]],
                 location.X, location.Y, layout.cellSize.Width, layout.cellSize.Height);
         }
 
-        public static void RenderMapF(Graphics graphics, Game map, LayoutF layout, VisualConfig style)
+        public static void RenderMapF(Graphics graphics, Game map, LayoutF layout, Style style)
         {
             List<RectangleF> cells = new List<RectangleF>();
             PointF firstInRowLocation = new PointF();
-            int grid = Grid(style.gridIsVisible);
+            int grid = Grid(style.GridIsVisible);
             int count = 0;
-            SolidBrush brush;
-
-            brush = new SolidBrush(style.deadCellColor);
-            graphics.FillRectangle(brush, new RectangleF(layout.zeroPivot, layout.mapSize));
+            
+            graphics.FillRectangle(style.DeadCell, new RectangleF(layout.zeroPivot, layout.mapSize));
 
 
             for (int i = 0; i < map.RowsCount; i++) {
@@ -116,18 +136,17 @@ namespace Conway_s_Game_Of_Life
                     new SizeF((layout.cellSize.Width + grid) * count, layout.cellSize.Height + grid)));
                 count = 0;
             }
-
-            brush = new SolidBrush(style.aliveCellColor);
-
+            
             RectangleF[] cellsArr = cells.ToArray();
             if (cellsArr.Length != 0)
-                graphics.FillRectangles(brush, cellsArr);
+                graphics.FillRectangles(style.AliveCell, cellsArr);
 
             if (layout.mousePos.X > 0 && layout.mousePos.Y > 0) {
+                SolidBrush brush;
                 if (map[layout.mousePos])
-                    brush = new SolidBrush(style.MouseAlive);
+                    brush = style.MouseAlive;
                 else
-                    brush = new SolidBrush(style.MouseDead);
+                    brush = style.MouseDead;
                 PointF point = RealLocationF(layout, style, layout.mousePos);
                 graphics.FillRectangle(brush, point.X - grid, point.Y - grid, 
                     layout.cellSize.Width + grid, layout.cellSize.Height + grid);
@@ -137,15 +156,15 @@ namespace Conway_s_Game_Of_Life
 
         }
 
-        private static void DrawGridF(Graphics graphics, Game map, LayoutF layout, VisualConfig style)
+        private static void DrawGridF(Graphics graphics, Game map, LayoutF layout, Style style)
         {
             List<RectangleF> grid = new List<RectangleF>();
             PointF zero = layout.zeroPivot;
-            int gridThickness = Grid(style.gridIsVisible);
+            int gridThickness = Grid(style.GridIsVisible);
             float cellHeight = layout.cellSize.Height;
             float cellWidth = layout.cellSize.Width;
 
-            if (style.gridIsVisible) {
+            if (style.GridIsVisible) {
                 SizeF recSize = new SizeF(layout.mapSize.Width - gridThickness, cellHeight + gridThickness);
                 for (int i = 0; i < Math.Ceiling((double)(map.RowsCount / 2)); i++) {
                     grid.Add(new RectangleF(new PointF(zero.X,
@@ -160,31 +179,31 @@ namespace Conway_s_Game_Of_Life
             grid.Add(new RectangleF(zero, layout.mapSize - new Size(gridThickness, gridThickness)));
 
             RectangleF[] rec = grid.ToArray();
-            graphics.DrawRectangles(new Pen(new SolidBrush(style.gridColor), gridThickness),
+            graphics.DrawRectangles(new Pen(style.Grid, gridThickness),
                 rec);
         }
 
-        public static LayoutF LayoutSetupF(System.Windows.Forms.PictureBox pictureBox, Game game, ref VisualConfig style)
+        public static LayoutF LayoutSetupF(System.Windows.Forms.PictureBox pictureBox, Game game, ref Style style)
         {
             LayoutF result = new LayoutF();
             float CellSetup(float size, int count, int gridThickness) => (size - gridThickness * (count + 1)) / count;
             float MapSetup(float size, int count, int gridThickness) => (size + gridThickness) * count + gridThickness;
 
-            if (!style.gridIsOn && style.gridIsVisible)
-                style.gridIsVisible = false;
+            if (!style.GridIsOn && style.GridIsVisible)
+                style.GridIsVisible = false;
 
-            int grid = Grid(style.gridIsVisible);
+            int grid = Grid(style.GridIsVisible);
             int pbWidth = pictureBox.Size.Width - 10;
             int pbHeight = pictureBox.Size.Height - 10;
 
             float cellSize = (float)Math.Round(Math.Min(CellSetup(pbHeight, game.RowsCount, grid),
                 CellSetup(pbWidth, game.ColomnsCount, grid)), 3);
-            if (style.gridIsVisible && cellSize < 4) {
-                style.gridIsVisible = false;
+            if (style.GridIsVisible && cellSize < 4) {
+                style.GridIsVisible = false;
                 return LayoutSetupF(pictureBox, game, ref style);
             }
-            if (style.gridIsOn && !style.gridIsVisible && cellSize > 5) {
-                style.gridIsVisible = true;
+            if (style.GridIsOn && !style.GridIsVisible && cellSize > 5) {
+                style.GridIsVisible = true;
                 return LayoutSetupF(pictureBox, game, ref style);
             }
             result.cellSize = new SizeF(cellSize, cellSize);

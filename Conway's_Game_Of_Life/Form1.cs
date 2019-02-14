@@ -21,7 +21,7 @@ namespace Conway_s_Game_Of_Life
         private bool mapSizeChenged;
 
         private Game game;
-        private MapRenderer.VisualConfig style;
+        private MapRenderer.Style style;
         private MapRenderer.LayoutF layout;
 
         private Thread tickGenerator;
@@ -48,13 +48,13 @@ namespace Conway_s_Game_Of_Life
             mapSizeChenged = true;
             game = new Game((int)nudRows.Value, (int)nudColomns.Value);
             game.Random();
-            style = new MapRenderer.VisualConfig()
+            style = new MapRenderer.Style()
             {
-                gridIsOn = Properties.Settings.Default.gridThickness,
-                gridIsVisible = style.gridIsOn,
-                gridColor = Properties.Settings.Default.gridColor,
-                aliveCellColor = Properties.Settings.Default.aliveCellColor,
-                deadCellColor = Properties.Settings.Default.deathCellColor
+                GridIsOn = Properties.Settings.Default.gridThickness,
+                GridIsVisible = style.GridIsOn,
+                GridColor = Properties.Settings.Default.gridColor,
+                AliveCellColor = Properties.Settings.Default.aliveCellColor,
+                DeadCellColor = Properties.Settings.Default.deathCellColor
             };
             layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
             layout.mousePos = new Point(-1, -1);
