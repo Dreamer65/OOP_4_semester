@@ -1,4 +1,4 @@
-﻿//#undef DEBUG
+﻿#undef DEBUG
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,7 +59,7 @@ namespace Conway_s_Game_Of_Life
             mapSizeChenged = false;
 
 #if !DEBUG
-            DEBUG_STATUS.Location = new Point(615, 600);
+            DEBUG_STATUS.Location = new Point(615, 400);
             DEBUG_STATUS.Anchor = pbStartStop.Anchor;
             this.Controls.Add(DEBUG_STATUS);
 #endif
@@ -85,9 +85,6 @@ namespace Conway_s_Game_Of_Life
 
         private void picbGenerationMap_MouseMove(object sender, MouseEventArgs e)
         {
-#if !DEBUG
-            DEBUG_STATUS.Text = layout.mousePos.ToString();
-#endif
             if (mapSizeChenged)
                 return;
             try {
@@ -119,6 +116,10 @@ namespace Conway_s_Game_Of_Life
 
         private void picbGenerationMap_Paint(object sender, PaintEventArgs e)
         {
+
+#if !DEBUG
+            DEBUG_STATUS.Text = game.State.ToString();
+#endif
             refreshSync.Reset();
             MapRenderer.RenderMapF(e.Graphics, game, layout, style);
             refreshSync.Set();

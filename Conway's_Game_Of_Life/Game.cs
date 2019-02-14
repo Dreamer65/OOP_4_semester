@@ -17,7 +17,7 @@ namespace Conway_s_Game_Of_Life
         private int colomnsCount;
         private int alives;
         private bool isDead;
-        private bool isLoop;
+        private bool[] isLoop;
         private bool isStable;
 
         public Game(int rowsCount, int colomnsCount)
@@ -28,7 +28,7 @@ namespace Conway_s_Game_Of_Life
             prevGenerations = new bool[prevGenerationsCount][,];
             PrevGenerationsCleare();
             isDead = false;
-            isLoop = false;
+            isLoop = new bool[prevGenerationsCount];
             isStable = false;
             alives = 0;
         }
@@ -38,10 +38,11 @@ namespace Conway_s_Game_Of_Life
             get {
                 if (isDead)
                     return GameStates.Dead;
-                if (isLoop)
-                    return GameStates.Loop;
                 if (isStable)
                     return GameStates.Stable;
+                foreach (bool val in isLoop)
+                    if (val)
+                        return GameStates.Loop;
                 return GameStates.Alive;
             }
         }
@@ -106,7 +107,8 @@ namespace Conway_s_Game_Of_Life
         {
             bool[,] nextGeneration = new bool[rowsCount, colomnsCount];
             isDead = true;
-            isLoop = true;
+            for (int i = 0; i < prevGenerationsCount; i++)
+                isLoop[i] = true;
             isStable = true;
             alives = 0;
 
@@ -116,10 +118,9 @@ namespace Conway_s_Game_Of_Life
 
                     if (isStable && nextGeneration[i, j] != generation[i, j])
                         isStable = false;
-                    if (isLoop)
-                        foreach (bool[,] gen in prevGenerations) {
-                            if (nextGeneration[i, j] != gen[i, j])
-                                isLoop = false;
+                for(int k = 0; k< prevGenerationsCount; k++) {
+                            if (nextGeneration[i, j] != prevGenerations[k][i, j])
+                                isLoop[k] = false;
                         }
                     if (isDead && nextGeneration[i, j])
                         isDead = false;
