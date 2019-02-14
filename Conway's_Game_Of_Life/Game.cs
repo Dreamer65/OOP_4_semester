@@ -8,8 +8,11 @@ namespace Conway_s_Game_Of_Life
 {
     class Game
     {
+        public enum GameStates {Alive, Stable, Loop, Dead};
+        private const int prevGenerationsCount = 10;
+
         private bool[,] generation;
-        private bool[,] prevGeneration;
+        private bool[][,] prevGenerations;
         private int rowsCount;
         private int colomnsCount;
         private int alives;
@@ -19,19 +22,30 @@ namespace Conway_s_Game_Of_Life
 
         public Game(int rowsCount, int colomnsCount)
         {
-            generation = new bool[rowsCount, colomnsCount];
-            prevGeneration = new bool[rowsCount, colomnsCount];
             this.rowsCount = rowsCount;
             this.colomnsCount = colomnsCount;
+            generation = new bool[rowsCount, colomnsCount];
+            prevGenerations = new bool[prevGenerationsCount][,];
+            PrevGenerationsCleare();
             isDead = false;
             isLoop = false;
             isStable = false;
             alives = 0;
         }
 
-        public bool IsDead { get => isDead; }
-        public bool IsLoop { get => isLoop; }
-        public bool IsStable { get => isStable; }
+        public GameStates State
+        {
+            get {
+                if (isDead)
+                    return GameStates.Dead;
+                if (isLoop)
+                    return GameStates.Loop;
+                if (isStable)
+                    return GameStates.Stable;
+                return GameStates.Alive;
+            }
+        }
+
         public int Alives { get => alives; }
         public int Length { get => GameMap.Length; }
 
@@ -43,7 +57,7 @@ namespace Conway_s_Game_Of_Life
             get => generation[row, colomn];
             set {
                 generation[row, colomn] = value;
-                prevGeneration = new bool[rowsCount, colomnsCount];
+                PrevGenerationsCleare();
             }
         }
 
@@ -52,7 +66,7 @@ namespace Conway_s_Game_Of_Life
             get => generation[location.Y, location.X];
             set {
                 generation[location.Y, location.X] = value;
-                prevGeneration = new bool[rowsCount, colomnsCount];
+                PrevGenerationsCleare();
             }
         }
 
@@ -67,16 +81,19 @@ namespace Conway_s_Game_Of_Life
                 foreach (bool cell in generation)
                     if (cell)
                         alives++;
+                PrevGenerationsCleare();
             }
         }
-        public bool[,] OldMap
+
+        private void PrevGenerationsCleare()
         {
-            get => prevGeneration;
-            
+            for (int i = 0; i < prevGenerations.Length; i++)
+                prevGenerations[i] = new bool[rowsCount, colomnsCount];
         }
 
         public void Random()
         {
+            generation = new bool[rowsCount, colomnsCount];
             Random random = new Random();
             for (int i = 0; i < rowsCount; i++)
                 for (int j = 0; j < colomnsCount; j++) {
@@ -97,14 +114,19 @@ namespace Conway_s_Game_Of_Life
                 for (int j = 0; j < colomnsCount; j++) {
                     nextGeneration[i, j] = IsAlive(i, j);
 
-                    if (nextGeneration[i, j] != generation[i, j])
+                    if (isStable && nextGeneration[i, j] != generation[i, j])
                         isStable = false;
-                    if (nextGeneration[i, j] != prevGeneration[i, j])
-                        isLoop = false;
-                    if (nextGeneration[i, j])
+                    if (isLoop)
+                        foreach (bool[,] gen in prevGenerations) {
+                            if (nextGeneration[i, j] != gen[i, j])
+                                isLoop = false;
+                        }
+                    if (isDead && nextGeneration[i, j])
                         isDead = false;
                 }
-            prevGeneration = generation;
+            for (int i = prevGenerations.Length - 2; i >= 0; i--)
+                prevGenerations[i + 1] = prevGenerations[i];
+            prevGenerations[0] = generation;
             generation = nextGeneration;
         }
 
