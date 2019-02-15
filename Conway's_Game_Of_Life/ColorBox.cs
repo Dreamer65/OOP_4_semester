@@ -12,7 +12,34 @@ namespace Conway_s_Game_Of_Life
 {
     public partial class ColorBox : UserControl
     {
+        /// <summary>
+        /// Предоставляет данные для события <code>ColorBox.ColorChenged</code>
+        /// </summary>
+        public class ColorChengedEventArgs : EventArgs
+        {
+            public Color Color { get; set; }
+        }
+
+        /// <summary>
+        /// Событие возникает, когда изменяется свойство Color объекта.
+        /// </summary>
+        public event EventHandler<ColorChengedEventArgs> ColorChenged;
+
         private Color color;
+        public Color Color {
+            get => color;
+            set {
+                color = value;
+                tbColorName.Text = (color.ToKnownColor() != 0) ? color.ToKnownColor().ToString() : "#" + color.Name.ToString().ToUpper();
+                colorDialog.Color = color;
+                picbColor.Refresh();
+                if (ColorChenged != null) {
+                    ColorChengedEventArgs e = new ColorChengedEventArgs();
+                    e.Color = color;
+                    ColorChenged(this, e);
+                }
+            }
+        }
 
         public string LabelText { get => lbLabel.Text; set => lbLabel.Text = value; }
 
@@ -35,20 +62,12 @@ namespace Conway_s_Game_Of_Life
             }
         }
 
+
         public ColorBox()
         {
             InitializeComponent();
         }
 
-        public Color Color {
-            get => color;
-            set {
-                color = value;
-                tbColorName.Text = (color.ToKnownColor() != 0) ? color.ToKnownColor().ToString() : "#" + color.Name.ToString().ToUpper();
-                colorDialog.Color = color;
-                picbColor.Refresh();
-            }
-        }
 
         private void pbColorDialog_Click(object sender, EventArgs e)
         {
