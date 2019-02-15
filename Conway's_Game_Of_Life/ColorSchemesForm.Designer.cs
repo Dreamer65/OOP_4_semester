@@ -31,12 +31,13 @@
             this.cbAliveCellsColor = new Conway_s_Game_Of_Life.ColorBox();
             this.cbDeadCellsColor = new Conway_s_Game_Of_Life.ColorBox();
             this.gbGrid = new System.Windows.Forms.GroupBox();
-            this.cbGridColor = new Conway_s_Game_Of_Life.ColorBox();
-            this.rbGridOff = new System.Windows.Forms.RadioButton();
             this.rbGridOn = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rbGridOff = new System.Windows.Forms.RadioButton();
+            this.cbGridColor = new Conway_s_Game_Of_Life.ColorBox();
+            this.pbSetDefoult = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.pbCancel = new System.Windows.Forms.Button();
+            this.pbGetDefoult = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picbPreview)).BeginInit();
             this.gbGrid.SuspendLayout();
             this.SuspendLayout();
@@ -85,18 +86,14 @@
             this.gbGrid.TabStop = false;
             this.gbGrid.Text = "Настройки сетки";
             // 
-            // cbGridColor
+            // rbGridOn
             // 
-            this.cbGridColor.Color = System.Drawing.Color.Empty;
-            this.cbGridColor.Enabled = false;
-            this.cbGridColor.Labeled = false;
-            this.cbGridColor.LabelText = "Label";
-            this.cbGridColor.Location = new System.Drawing.Point(26, 53);
-            this.cbGridColor.MaximumSize = new System.Drawing.Size(300, 27);
-            this.cbGridColor.MinimumSize = new System.Drawing.Size(210, 27);
-            this.cbGridColor.Name = "cbGridColor";
-            this.cbGridColor.Size = new System.Drawing.Size(223, 27);
-            this.cbGridColor.TabIndex = 0;
+            this.rbGridOn.AutoSize = true;
+            this.rbGridOn.Location = new System.Drawing.Point(9, 60);
+            this.rbGridOn.Name = "rbGridOn";
+            this.rbGridOn.Size = new System.Drawing.Size(14, 13);
+            this.rbGridOn.TabIndex = 2;
+            this.rbGridOn.UseVisualStyleBackColor = true;
             // 
             // rbGridOff
             // 
@@ -110,23 +107,27 @@
             this.rbGridOff.Text = "Выкл.";
             this.rbGridOff.UseVisualStyleBackColor = true;
             // 
-            // rbGridOn
+            // cbGridColor
             // 
-            this.rbGridOn.AutoSize = true;
-            this.rbGridOn.Location = new System.Drawing.Point(9, 60);
-            this.rbGridOn.Name = "rbGridOn";
-            this.rbGridOn.Size = new System.Drawing.Size(14, 13);
-            this.rbGridOn.TabIndex = 2;
-            this.rbGridOn.UseVisualStyleBackColor = true;
+            this.cbGridColor.Color = System.Drawing.Color.Empty;
+            this.cbGridColor.Enabled = false;
+            this.cbGridColor.Labeled = false;
+            this.cbGridColor.LabelText = "Label";
+            this.cbGridColor.Location = new System.Drawing.Point(26, 53);
+            this.cbGridColor.MaximumSize = new System.Drawing.Size(300, 27);
+            this.cbGridColor.MinimumSize = new System.Drawing.Size(210, 27);
+            this.cbGridColor.Name = "cbGridColor";
+            this.cbGridColor.Size = new System.Drawing.Size(223, 27);
+            this.cbGridColor.TabIndex = 0;
             // 
-            // button1
+            // pbSetDefoult
             // 
-            this.button1.Location = new System.Drawing.Point(12, 213);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Сделать по умолчанию";
-            this.button1.UseVisualStyleBackColor = true;
+            this.pbSetDefoult.Location = new System.Drawing.Point(125, 213);
+            this.pbSetDefoult.Name = "pbSetDefoult";
+            this.pbSetDefoult.Size = new System.Drawing.Size(152, 23);
+            this.pbSetDefoult.TabIndex = 4;
+            this.pbSetDefoult.Text = "Установить по умолчанию";
+            this.pbSetDefoult.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -136,32 +137,46 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "OK";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // pbCancel
             // 
-            this.button3.Location = new System.Drawing.Point(389, 213);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Отмена";
-            this.button3.UseVisualStyleBackColor = true;
+            this.pbCancel.Location = new System.Drawing.Point(389, 213);
+            this.pbCancel.Name = "pbCancel";
+            this.pbCancel.Size = new System.Drawing.Size(79, 23);
+            this.pbCancel.TabIndex = 4;
+            this.pbCancel.Text = "Отмена";
+            this.pbCancel.UseVisualStyleBackColor = true;
+            this.pbCancel.Click += new System.EventHandler(this.pbCancel_Click);
             // 
-            // StyleConfigForm
+            // pbGetDefoult
+            // 
+            this.pbGetDefoult.Location = new System.Drawing.Point(12, 213);
+            this.pbGetDefoult.Name = "pbGetDefoult";
+            this.pbGetDefoult.Size = new System.Drawing.Size(94, 23);
+            this.pbGetDefoult.TabIndex = 5;
+            this.pbGetDefoult.Text = "По умолчанию";
+            this.pbGetDefoult.UseVisualStyleBackColor = true;
+            this.pbGetDefoult.Click += new System.EventHandler(this.pbGetDefoult_Click);
+            // 
+            // ColorSchemesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 247);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.pbGetDefoult);
+            this.Controls.Add(this.pbCancel);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pbSetDefoult);
             this.Controls.Add(this.gbGrid);
             this.Controls.Add(this.cbDeadCellsColor);
             this.Controls.Add(this.cbAliveCellsColor);
             this.Controls.Add(this.picbPreview);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Name = "StyleConfigForm";
+            this.MaximumSize = new System.Drawing.Size(494, 286);
+            this.MinimumSize = new System.Drawing.Size(494, 286);
+            this.Name = "ColorSchemesForm";
             this.Text = "Цветовые схемы";
-            this.Load += new System.EventHandler(this.StyleConfigForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picbPreview)).EndInit();
             this.gbGrid.ResumeLayout(false);
             this.gbGrid.PerformLayout();
@@ -178,8 +193,9 @@
         private System.Windows.Forms.RadioButton rbGridOn;
         private System.Windows.Forms.RadioButton rbGridOff;
         private ColorBox cbGridColor;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button pbSetDefoult;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button pbCancel;
+        private System.Windows.Forms.Button pbGetDefoult;
     }
 }

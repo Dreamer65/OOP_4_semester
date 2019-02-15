@@ -18,9 +18,20 @@ namespace Conway_s_Game_Of_Life
         {
             InitializeComponent();
         }
-
-        private void StyleConfigForm_Load(object sender, EventArgs e)
+        
+        private void button2_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.OK;
+        }
+
+        private void pbCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void pbGetDefoult_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
