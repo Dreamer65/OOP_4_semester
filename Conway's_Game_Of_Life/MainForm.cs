@@ -191,7 +191,7 @@ namespace Conway_s_Game_Of_Life
 
         private void mbSetitngs_Click(object sender, EventArgs e)
         {
-            StyleConfigForm config = new StyleConfigForm();
+            ColorSchemesForm config = new ColorSchemesForm();
             config.Show();
         }
     }

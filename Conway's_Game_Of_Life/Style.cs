@@ -14,6 +14,7 @@ namespace Conway_s_Game_Of_Life
             private Color aliveCellColor;
             private Color deadCellColor;
 
+            public bool DefoultStyle { get; set; }
             public bool GridIsOn { get; set; }
             public bool GridIsVisible { get; set; }
             public SolidBrush Grid { get; private set; }

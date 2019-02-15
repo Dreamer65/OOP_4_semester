@@ -43,7 +43,7 @@
             this.mbLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.mbSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.mbParams = new System.Windows.Forms.ToolStripMenuItem();
-            this.mbSetitngs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbColorSchemes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mbAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.lbSpeed = new System.Windows.Forms.Label();
@@ -182,6 +182,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mbFile,
             this.mbParams});
@@ -205,47 +206,47 @@
             // mbOpen
             // 
             this.mbOpen.Name = "mbOpen";
-            this.mbOpen.Size = new System.Drawing.Size(153, 22);
+            this.mbOpen.Size = new System.Drawing.Size(180, 22);
             this.mbOpen.Text = "Открыть";
             // 
             // mbLoad
             // 
             this.mbLoad.Name = "mbLoad";
-            this.mbLoad.Size = new System.Drawing.Size(153, 22);
+            this.mbLoad.Size = new System.Drawing.Size(180, 22);
             this.mbLoad.Text = "Загрузить";
             // 
             // mbSaveAs
             // 
             this.mbSaveAs.Name = "mbSaveAs";
-            this.mbSaveAs.Size = new System.Drawing.Size(153, 22);
+            this.mbSaveAs.Size = new System.Drawing.Size(180, 22);
             this.mbSaveAs.Text = "Сохранить как";
             // 
             // mbParams
             // 
             this.mbParams.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mbSetitngs,
+            this.mbColorSchemes,
             this.toolStripSeparator1,
             this.mbAbout});
             this.mbParams.Name = "mbParams";
             this.mbParams.Size = new System.Drawing.Size(83, 20);
             this.mbParams.Text = "Параметры";
             // 
-            // mbSetitngs
+            // mbColorSchemes
             // 
-            this.mbSetitngs.Name = "mbSetitngs";
-            this.mbSetitngs.Size = new System.Drawing.Size(149, 22);
-            this.mbSetitngs.Text = "Настройки";
-            this.mbSetitngs.Click += new System.EventHandler(this.mbSetitngs_Click);
+            this.mbColorSchemes.Name = "mbColorSchemes";
+            this.mbColorSchemes.Size = new System.Drawing.Size(180, 22);
+            this.mbColorSchemes.Text = "Цветовые схемы";
+            this.mbColorSchemes.Click += new System.EventHandler(this.mbSetitngs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // mbAbout
             // 
             this.mbAbout.Name = "mbAbout";
-            this.mbAbout.Size = new System.Drawing.Size(149, 22);
+            this.mbAbout.Size = new System.Drawing.Size(180, 22);
             this.mbAbout.Text = "О программе";
             // 
             // lbSpeed
@@ -277,8 +278,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "MainForm";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Text = "Жизнь Конуэя";
+            this.Text = "Conway\'s game of life";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.picbGenerationMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRows)).EndInit();
@@ -309,7 +309,7 @@
         private System.Windows.Forms.ToolStripMenuItem mbLoad;
         private System.Windows.Forms.ToolStripMenuItem mbSaveAs;
         private System.Windows.Forms.ToolStripMenuItem mbParams;
-        private System.Windows.Forms.ToolStripMenuItem mbSetitngs;
+        private System.Windows.Forms.ToolStripMenuItem mbColorSchemes;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem mbAbout;
     }

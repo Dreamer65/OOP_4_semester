@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Conway_s_Game_Of_Life
 {
-    public partial class StyleConfigForm : Form
+    public partial class ColorSchemesForm : Form
     {
         public MapRenderer.Style Style { get; set; }
 
-        public StyleConfigForm()
+        public ColorSchemesForm()
         {
             InitializeComponent();
         }
