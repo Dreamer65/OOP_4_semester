@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Conway_s_Game_Of_Life
 {
-    class Game
+    public class Game
     {
         public enum GameStates {Alive, Stable, Loop, Dead};
         private const int prevGenerationsCount = 10;

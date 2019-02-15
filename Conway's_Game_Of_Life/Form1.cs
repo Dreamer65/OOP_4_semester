@@ -188,5 +188,11 @@ namespace Conway_s_Game_Of_Life
             picbGenerationMap.Refresh();
             pbStartStop.Text = pbStartStopStatus[0]; 
         }
+
+        private void mbSetitngs_Click(object sender, EventArgs e)
+        {
+            StyleConfigForm config = new StyleConfigForm();
+            config.Show();
+        }
     }
 }
