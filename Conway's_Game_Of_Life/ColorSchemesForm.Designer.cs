@@ -29,17 +29,17 @@
         {
             this.picbPreview = new System.Windows.Forms.PictureBox();
             this.gbGrid = new System.Windows.Forms.GroupBox();
+            this.lbGrid = new System.Windows.Forms.Label();
             this.rbGridOn = new System.Windows.Forms.RadioButton();
             this.rbGridOff = new System.Windows.Forms.RadioButton();
-            this.colbGridColor = new Conway_s_Game_Of_Life.ColorBox();
             this.pbOk = new System.Windows.Forms.Button();
             this.pbCancel = new System.Windows.Forms.Button();
             this.pbGetDefoult = new System.Windows.Forms.Button();
-            this.cbUseStyleAsDefault = new System.Windows.Forms.CheckBox();
+            this.cbUseStyleAtStartup = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.colbGridColor = new Conway_s_Game_Of_Life.ColorBox();
             this.colbDeadCellsColor = new Conway_s_Game_Of_Life.ColorBox();
             this.colbAliveCellsColor = new Conway_s_Game_Of_Life.ColorBox();
-            this.lbGrid = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picbPreview)).BeginInit();
             this.gbGrid.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +67,15 @@
             this.gbGrid.TabStop = false;
             this.gbGrid.Text = "Настройки сетки и рамки";
             // 
+            // lbGrid
+            // 
+            this.lbGrid.AutoSize = true;
+            this.lbGrid.Location = new System.Drawing.Point(23, 28);
+            this.lbGrid.Name = "lbGrid";
+            this.lbGrid.Size = new System.Drawing.Size(40, 13);
+            this.lbGrid.TabIndex = 3;
+            this.lbGrid.Text = "Сетка:";
+            // 
             // rbGridOn
             // 
             this.rbGridOn.AutoSize = true;
@@ -90,19 +99,6 @@
             this.rbGridOff.Text = "Выкл.";
             this.rbGridOff.UseVisualStyleBackColor = true;
             this.rbGridOff.CheckedChanged += new System.EventHandler(this.rbGridOn_CheckedChanged);
-            // 
-            // colbGridColor
-            // 
-            this.colbGridColor.Color = System.Drawing.Color.Empty;
-            this.colbGridColor.Labeled = false;
-            this.colbGridColor.LabelText = "";
-            this.colbGridColor.Location = new System.Drawing.Point(6, 49);
-            this.colbGridColor.MaximumSize = new System.Drawing.Size(300, 27);
-            this.colbGridColor.MinimumSize = new System.Drawing.Size(210, 27);
-            this.colbGridColor.Name = "colbGridColor";
-            this.colbGridColor.Size = new System.Drawing.Size(235, 27);
-            this.colbGridColor.TabIndex = 0;
-            this.colbGridColor.ColorChenged += new System.EventHandler<Conway_s_Game_Of_Life.ColorBox.ColorChengedEventArgs>(this.colbGridColor_ColorChenged);
             // 
             // pbOk
             // 
@@ -138,15 +134,37 @@
             this.pbGetDefoult.UseVisualStyleBackColor = true;
             this.pbGetDefoult.Click += new System.EventHandler(this.pbGetDefoult_Click);
             // 
-            // cbUseStyleAsDefault
+            // cbUseStyleAtStartup
             // 
-            this.cbUseStyleAsDefault.AutoSize = true;
-            this.cbUseStyleAsDefault.Location = new System.Drawing.Point(213, 213);
-            this.cbUseStyleAsDefault.Name = "cbUseStyleAsDefault";
-            this.cbUseStyleAsDefault.Size = new System.Drawing.Size(246, 17);
-            this.cbUseStyleAsDefault.TabIndex = 6;
-            this.cbUseStyleAsDefault.Text = "Использовать данный стиль по умолчанию";
-            this.cbUseStyleAsDefault.UseVisualStyleBackColor = true;
+            this.cbUseStyleAtStartup.AutoSize = true;
+            this.cbUseStyleAtStartup.Location = new System.Drawing.Point(213, 213);
+            this.cbUseStyleAtStartup.Name = "cbUseStyleAtStartup";
+            this.cbUseStyleAtStartup.Size = new System.Drawing.Size(237, 17);
+            this.cbUseStyleAtStartup.TabIndex = 6;
+            this.cbUseStyleAtStartup.Text = "Использовать данный стиль при запуске";
+            this.cbUseStyleAtStartup.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 238);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Загрузить...";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // colbGridColor
+            // 
+            this.colbGridColor.Color = System.Drawing.Color.Empty;
+            this.colbGridColor.Labeled = false;
+            this.colbGridColor.LabelText = "";
+            this.colbGridColor.Location = new System.Drawing.Point(6, 49);
+            this.colbGridColor.MaximumSize = new System.Drawing.Size(300, 27);
+            this.colbGridColor.MinimumSize = new System.Drawing.Size(210, 27);
+            this.colbGridColor.Name = "colbGridColor";
+            this.colbGridColor.Size = new System.Drawing.Size(235, 27);
+            this.colbGridColor.TabIndex = 0;
+            this.colbGridColor.ColorChenged += new System.EventHandler<Conway_s_Game_Of_Life.ColorBox.ColorChengedEventArgs>(this.colbGridColor_ColorChenged);
             // 
             // colbDeadCellsColor
             // 
@@ -176,31 +194,13 @@
             this.colbAliveCellsColor.TabIndex = 1;
             this.colbAliveCellsColor.ColorChenged += new System.EventHandler<Conway_s_Game_Of_Life.ColorBox.ColorChengedEventArgs>(this.colbAliveCellsColor_ColorChenged);
             // 
-            // lbGrid
-            // 
-            this.lbGrid.AutoSize = true;
-            this.lbGrid.Location = new System.Drawing.Point(23, 28);
-            this.lbGrid.Name = "lbGrid";
-            this.lbGrid.Size = new System.Drawing.Size(40, 13);
-            this.lbGrid.TabIndex = 3;
-            this.lbGrid.Text = "Сетка:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 238);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Загрузить...";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // ColorSchemesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 272);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.cbUseStyleAsDefault);
+            this.Controls.Add(this.cbUseStyleAtStartup);
             this.Controls.Add(this.pbGetDefoult);
             this.Controls.Add(this.pbCancel);
             this.Controls.Add(this.pbOk);
@@ -233,7 +233,7 @@
         private System.Windows.Forms.Button pbOk;
         private System.Windows.Forms.Button pbCancel;
         private System.Windows.Forms.Button pbGetDefoult;
-        private System.Windows.Forms.CheckBox cbUseStyleAsDefault;
+        private System.Windows.Forms.CheckBox cbUseStyleAtStartup;
         private System.Windows.Forms.Label lbGrid;
         private System.Windows.Forms.Button button1;
     }

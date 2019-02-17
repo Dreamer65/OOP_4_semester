@@ -58,7 +58,7 @@ namespace Conway_s_Game_Of_Life
                 GridColor = Properties.Settings.Default.gridColor,
                 AliveCellColor = Properties.Settings.Default.aliveCellColor,
                 DeadCellColor = Properties.Settings.Default.deathCellColor,
-                DefoultStyle = true
+                DefoultStyle = Properties.Settings.Default.defoultStyle
             };
             layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
             style.mousePos = new Point(-1, -1);

@@ -24,7 +24,7 @@ namespace Conway_s_Game_Of_Life
                     rbGridOn.Checked = false;
                 }
                 pbGetDefoult.Enabled = !value.DefoultStyle;
-                cbUseStyleAsDefault.Enabled = !value.DefoultStyle;
+                cbUseStyleAtStartup.Enabled = !value.DefoultStyle;
                 picbPreview.Refresh();
             }
         }
@@ -44,12 +44,14 @@ namespace Conway_s_Game_Of_Life
 
         private void pbOk_Click(object sender, EventArgs e)
         {
-            if (!style.DefoultStyle && cbUseStyleAsDefault.Checked) {
+            if (!style.DefoultStyle && cbUseStyleAtStartup.Checked) {
                 style.GridIsVisible = style.GridIsOn;
+                Properties.Settings.Default.gridIsOn = style.GridIsOn;
                 Properties.Settings.Default.gridColor = style.Grid.Color;
                 Properties.Settings.Default.aliveCellColor = style.AliveCell.Color;
                 Properties.Settings.Default.deathCellColor = style.DeadCell.Color;
-                style.DefoultStyle = true;
+                Properties.Settings.Default.defoultStyle = style.DefoultStyle;
+                Properties.Settings.Default.Save();
             }
             DialogResult = DialogResult.OK;
         }
@@ -63,7 +65,7 @@ namespace Conway_s_Game_Of_Life
         {
             style.AliveCellColor = e.Color;
             pbGetDefoult.Enabled = true;
-            cbUseStyleAsDefault.Enabled = true;
+            cbUseStyleAtStartup.Enabled = true;
             style.DefoultStyle = false;
             picbPreview.Refresh();
         }
@@ -72,7 +74,7 @@ namespace Conway_s_Game_Of_Life
         {
             style.DeadCellColor = e.Color;
             pbGetDefoult.Enabled = true;
-            cbUseStyleAsDefault.Enabled = true;
+            cbUseStyleAtStartup.Enabled = true;
             style.DefoultStyle = false;
             picbPreview.Refresh();
         }
@@ -81,23 +83,31 @@ namespace Conway_s_Game_Of_Life
         {
             style.GridColor = e.Color;
             pbGetDefoult.Enabled = true;
-            cbUseStyleAsDefault.Enabled = true;
+            cbUseStyleAtStartup.Enabled = true;
             style.DefoultStyle = false;
             picbPreview.Refresh();
         }
 
         private void pbGetDefoult_Click(object sender, EventArgs e)
         {
-            Style = new MapRenderer.Style()
+            Style = DefoultStyle();
+            cbUseStyleAtStartup.Enabled = false;
+            cbUseStyleAtStartup.Checked = false;
+        }
+
+        // перенести в класс с файлами
+        private MapRenderer.Style DefoultStyle()
+        {
+            Properties.Settings.Default.Reset();
+            MapRenderer.Style result = new MapRenderer.Style()
             {
                 GridIsOn = Properties.Settings.Default.gridIsOn,
                 GridColor = Properties.Settings.Default.gridColor,
                 AliveCellColor = Properties.Settings.Default.aliveCellColor,
                 DeadCellColor = Properties.Settings.Default.deathCellColor,
-                DefoultStyle = true
+                DefoultStyle = Properties.Settings.Default.defoultStyle
             };
-            cbUseStyleAsDefault.Enabled = false;
-            cbUseStyleAsDefault.Checked = false;
+            return result;
         }
 
         private void rbGridOn_CheckedChanged(object sender, EventArgs e)
@@ -112,7 +122,7 @@ namespace Conway_s_Game_Of_Life
             }
             style.DefoultStyle = false;
             pbGetDefoult.Enabled = true;
-            cbUseStyleAsDefault.Enabled = true;
+            cbUseStyleAtStartup.Enabled = true;
             picbPreview.Refresh();
         }
 

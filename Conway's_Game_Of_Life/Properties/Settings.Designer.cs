@@ -121,5 +121,17 @@ namespace Conway_s_Game_Of_Life.Properties {
                 return ((string)(this["colonyIsLoopMessage"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool defoultStyle {
+            get {
+                return ((bool)(this["defoultStyle"]));
+            }
+            set {
+                this["defoultStyle"] = value;
+            }
+        }
     }
 }
