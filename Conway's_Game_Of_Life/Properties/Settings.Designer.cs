@@ -62,12 +62,12 @@ namespace Conway_s_Game_Of_Life.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool gridThickness {
+        public bool gridIsOn {
             get {
-                return ((bool)(this["gridThickness"]));
+                return ((bool)(this["gridIsOn"]));
             }
             set {
-                this["gridThickness"] = value;
+                this["gridIsOn"] = value;
             }
         }
         

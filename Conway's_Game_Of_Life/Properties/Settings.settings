@@ -11,7 +11,7 @@
     <Setting Name="deathCellColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Control</Value>
     </Setting>
-    <Setting Name="gridThickness" Type="System.Boolean" Scope="User">
+    <Setting Name="gridIsOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="mouseAlive" Type="System.Drawing.Color" Scope="User">

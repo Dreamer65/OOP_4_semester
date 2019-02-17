@@ -1,4 +1,4 @@
-﻿//#undef DEBUG
+﻿#undef DEBUG
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +28,8 @@ namespace Conway_s_Game_Of_Life
         private ManualResetEventSlim threadSync = new ManualResetEventSlim(false);
         private ManualResetEventSlim refreshSync = new ManualResetEventSlim(true);
 
+        private DialogResult dialogAlreadyShown;
+
         // DEBUG
         private Label DEBUG_STATUS = new Label();
         //
@@ -43,6 +45,7 @@ namespace Conway_s_Game_Of_Life
 #if !DEBUG
             DEBUG_STATUS.Location = new Point(615, 400);
             DEBUG_STATUS.Anchor = pbStartStop.Anchor;
+            DEBUG_STATUS.AutoSize = true;
             this.Controls.Add(DEBUG_STATUS);
 #endif
             mapSizeChenged = true;
@@ -50,14 +53,15 @@ namespace Conway_s_Game_Of_Life
             game.Random();
             style = new MapRenderer.Style()
             {
-                GridIsOn = Properties.Settings.Default.gridThickness,
+                GridIsOn = Properties.Settings.Default.gridIsOn,
                 GridIsVisible = style.GridIsOn,
                 GridColor = Properties.Settings.Default.gridColor,
                 AliveCellColor = Properties.Settings.Default.aliveCellColor,
-                DeadCellColor = Properties.Settings.Default.deathCellColor
+                DeadCellColor = Properties.Settings.Default.deathCellColor,
+                DefoultStyle = true
             };
             layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
-            layout.mousePos = new Point(-1, -1);
+            style.mousePos = new Point(-1, -1);
             tickGenerator = new Thread(ThreadTickGenerator);
             tickGenerator.Start();
 
@@ -66,6 +70,7 @@ namespace Conway_s_Game_Of_Life
 
         private void pbStartStop_Click(object sender, EventArgs e)
         {
+            dialogAlreadyShown = 0;
             if (!threadSync.IsSet) {
                 pbStartStop.Text = pbStartStopStatus[1];
                 nudColomns.Enabled = false;
@@ -82,14 +87,21 @@ namespace Conway_s_Game_Of_Life
 
         private void picbGenerationMap_MouseMove(object sender, MouseEventArgs e)
         {
+
+#if !DEBUG
+            DEBUG_STATUS.Text = e.Location.ToString();
+#endif
             if (mapSizeChenged)
                 return;
             try {
-                layout.mousePos = MapRenderer.RelativeLocationF(layout, style, e.Location);
-                if (layout.mousePos.X < 0 || layout.mousePos.Y < 0)
-                    layout.mousePos = new Point(-1, -1);
-                if (layout.mousePos.X >= game.ColomnsCount || layout.mousePos.Y >= game.RowsCount)
-                    layout.mousePos = new Point(-1, -1);
+                style.mousePos = MapRenderer.RelativeLocationF(layout, style, e.Location);
+#if !DEBUG
+                DEBUG_STATUS.Text += style.mousePos.ToString();
+#endif
+                if (style.mousePos.X < 0 || style.mousePos.Y < 0)
+                    style.mousePos = new Point(-1, -1);
+                if (style.mousePos.X >= game.ColomnsCount || style.mousePos.Y >= game.RowsCount)
+                    style.mousePos = new Point(-1, -1);
                 picbGenerationMap.Refresh();
             }
             catch { }
@@ -98,7 +110,7 @@ namespace Conway_s_Game_Of_Life
 
         private void picbGenerationMap_MouseLeave(object sender, EventArgs e)
         {
-            layout.mousePos = new Point(-1, -1);
+            style.mousePos = new Point(-1, -1);
             picbGenerationMap.Refresh();
         }
         private void picbGenerationMap_MouseUp(object sender, MouseEventArgs e)
@@ -113,24 +125,20 @@ namespace Conway_s_Game_Of_Life
 
         private void picbGenerationMap_Paint(object sender, PaintEventArgs e)
         {
-
-#if !DEBUG
-            DEBUG_STATUS.Text = game.State.ToString();
-#endif
             refreshSync.Reset();
             MapRenderer.RenderMapF(e.Graphics, game, layout, style);
             if (threadSync.IsSet && game.State != Game.GameStates.Alive) {
                 switch (game.State) {
                     case Game.GameStates.Dead: {
-                            MessageBox.Show(Properties.Settings.Default.colonyIsDeadMessage);
+                                dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsDeadMessage);
                             break;
                         }
                     case Game.GameStates.Loop: {
-                            MessageBox.Show(Properties.Settings.Default.colonyIsLoopMessage);
+                                dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsLoopMessage);
                             break;
                         }
                     case Game.GameStates.Stable: {
-                            MessageBox.Show(Properties.Settings.Default.colonyIsStableMessage);
+                                dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsStableMessage);
                             break;
                         }
                 }
@@ -191,8 +199,12 @@ namespace Conway_s_Game_Of_Life
 
         private void mbSetitngs_Click(object sender, EventArgs e)
         {
-            ColorSchemesForm config = new ColorSchemesForm();
-            config.Show();
+            ColorSchemesForm config = new ColorSchemesForm(style);
+            if (config.ShowDialog() != DialogResult.OK)
+                return;
+            style = config.Style;
+            layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
+            picbGenerationMap.Refresh();
         }
     }
 }

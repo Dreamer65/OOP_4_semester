@@ -36,9 +36,9 @@ namespace Conway_s_Game_Of_Life
         public static Point RelativeLocationF(LayoutF layout, Style style, Point location)
         {
             int grid = Grid(style.GridIsVisible);
-            int x = (int)((location.X - layout.zeroPivot.X - grid) / (grid + layout.cellSize.Width));
-            int y = (int)((location.Y - layout.zeroPivot.Y - grid) / (grid + layout.cellSize.Height));
-            return new Point(x, y);
+            float x = (location.X - layout.zeroPivot.X - grid) / (grid + layout.cellSize.Width);
+            float y = (location.Y - layout.zeroPivot.Y - grid) / (grid + layout.cellSize.Height);
+            return new Point((int)((x<0)?-1:x), (int)((y < 0) ? -1 : y));
         }
 
         public static void RenderSelectedCellF(Graphics graphics, Game map, LayoutF layout, Style style, int row, int colomn)
@@ -84,13 +84,13 @@ namespace Conway_s_Game_Of_Life
             if (cellsArr.Length != 0)
                 graphics.FillRectangles(style.AliveCell, cellsArr);
 
-            if (layout.mousePos.X > 0 && layout.mousePos.Y > 0) {
+            if (style.mousePos.X >= 0 && style.mousePos.Y >= 0) {
                 SolidBrush brush;
-                if (map[layout.mousePos])
+                if (map[style.mousePos])
                     brush = style.MouseAlive;
                 else
                     brush = style.MouseDead;
-                PointF point = RealLocationF(layout, style, layout.mousePos);
+                PointF point = RealLocationF(layout, style, style.mousePos);
                 graphics.FillRectangle(brush, point.X - grid, point.Y - grid, 
                     layout.cellSize.Width + grid, layout.cellSize.Height + grid);
             }
@@ -109,7 +109,7 @@ namespace Conway_s_Game_Of_Life
 
             if (style.GridIsVisible) {
                 SizeF recSize = new SizeF(layout.mapSize.Width - gridThickness, cellHeight + gridThickness);
-                for (int i = 0; i < Math.Ceiling((double)(map.RowsCount / 2)); i++) {
+                for (int i = 0; i < Math.Ceiling((double)map.RowsCount / 2); i++) {
                     grid.Add(new RectangleF(new PointF(zero.X,
                         2 * i * (gridThickness + cellHeight) + zero.Y), recSize));
                 }

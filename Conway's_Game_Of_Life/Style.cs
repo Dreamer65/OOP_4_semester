@@ -14,6 +14,7 @@ namespace Conway_s_Game_Of_Life
             private Color aliveCellColor;
             private Color deadCellColor;
 
+            public Point mousePos { get; set; }
             public bool DefoultStyle { get; set; }
             public bool GridIsOn { get; set; }
             public bool GridIsVisible { get; set; }
@@ -63,7 +64,7 @@ namespace Conway_s_Game_Of_Life
             public SizeF cellSize;
             public SizeF mapSize;
             public PointF zeroPivot;
-            public Point mousePos;
+            //public Point mousePos;
         }
     }
 }

@@ -93,7 +93,7 @@
             0,
             0});
             this.nudRows.Minimum = new decimal(new int[] {
-            20,
+            1,
             0,
             0,
             0});
@@ -117,7 +117,7 @@
             0,
             0});
             this.nudColomns.Minimum = new decimal(new int[] {
-            20,
+            1,
             0,
             0,
             0});
@@ -158,6 +158,7 @@
             this.tbInterval.Maximum = 400;
             this.tbInterval.Minimum = 50;
             this.tbInterval.Name = "tbInterval";
+            this.tbInterval.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.tbInterval.Size = new System.Drawing.Size(174, 45);
             this.tbInterval.SmallChange = 10;
             this.tbInterval.TabIndex = 5;
@@ -206,19 +207,19 @@
             // mbOpen
             // 
             this.mbOpen.Name = "mbOpen";
-            this.mbOpen.Size = new System.Drawing.Size(180, 22);
+            this.mbOpen.Size = new System.Drawing.Size(153, 22);
             this.mbOpen.Text = "Открыть";
             // 
             // mbLoad
             // 
             this.mbLoad.Name = "mbLoad";
-            this.mbLoad.Size = new System.Drawing.Size(180, 22);
+            this.mbLoad.Size = new System.Drawing.Size(153, 22);
             this.mbLoad.Text = "Загрузить";
             // 
             // mbSaveAs
             // 
             this.mbSaveAs.Name = "mbSaveAs";
-            this.mbSaveAs.Size = new System.Drawing.Size(180, 22);
+            this.mbSaveAs.Size = new System.Drawing.Size(153, 22);
             this.mbSaveAs.Text = "Сохранить как";
             // 
             // mbParams
@@ -234,19 +235,19 @@
             // mbColorSchemes
             // 
             this.mbColorSchemes.Name = "mbColorSchemes";
-            this.mbColorSchemes.Size = new System.Drawing.Size(180, 22);
+            this.mbColorSchemes.Size = new System.Drawing.Size(166, 22);
             this.mbColorSchemes.Text = "Цветовые схемы";
             this.mbColorSchemes.Click += new System.EventHandler(this.mbSetitngs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
             // 
             // mbAbout
             // 
             this.mbAbout.Name = "mbAbout";
-            this.mbAbout.Size = new System.Drawing.Size(180, 22);
+            this.mbAbout.Size = new System.Drawing.Size(166, 22);
             this.mbAbout.Text = "О программе";
             // 
             // lbSpeed
