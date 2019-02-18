@@ -91,7 +91,6 @@ namespace Conway_s_Game_Of_Life
         private void pbGetDefoult_Click(object sender, EventArgs e)
         {
             Style = DefoultStyle();
-            cbUseStyleAtStartup.Enabled = false;
             cbUseStyleAtStartup.Checked = false;
         }
 

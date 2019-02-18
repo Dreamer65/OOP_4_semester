@@ -207,20 +207,22 @@
             // mbOpen
             // 
             this.mbOpen.Name = "mbOpen";
-            this.mbOpen.Size = new System.Drawing.Size(153, 22);
+            this.mbOpen.Size = new System.Drawing.Size(180, 22);
             this.mbOpen.Text = "Открыть";
             // 
             // mbLoad
             // 
             this.mbLoad.Name = "mbLoad";
-            this.mbLoad.Size = new System.Drawing.Size(153, 22);
+            this.mbLoad.Size = new System.Drawing.Size(180, 22);
             this.mbLoad.Text = "Загрузить";
+            this.mbLoad.Click += new System.EventHandler(this.mbLoad_Click);
             // 
             // mbSaveAs
             // 
             this.mbSaveAs.Name = "mbSaveAs";
-            this.mbSaveAs.Size = new System.Drawing.Size(153, 22);
+            this.mbSaveAs.Size = new System.Drawing.Size(180, 22);
             this.mbSaveAs.Text = "Сохранить как";
+            this.mbSaveAs.Click += new System.EventHandler(this.mbSaveAs_Click);
             // 
             // mbParams
             // 

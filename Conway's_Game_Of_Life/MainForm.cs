@@ -206,5 +206,21 @@ namespace Conway_s_Game_Of_Life
             layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
             picbGenerationMap.Refresh();
         }
+
+        private void mbSaveAs_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+            GameFile.SaveGameMap(saveFileDialog.FileName, game);
+        }
+
+        private void mbLoad_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+            game = GameFile.LoadGameMap(openFileDialog.FileName);
+            layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
+            picbGenerationMap.Refresh();
+        }
     }
 }
