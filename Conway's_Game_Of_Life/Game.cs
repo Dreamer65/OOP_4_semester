@@ -118,10 +118,10 @@ namespace Conway_s_Game_Of_Life
 
                     if (isStable && nextGeneration[i, j] != generation[i, j])
                         isStable = false;
-                for(int k = 0; k< prevGenerationsCount; k++) {
+                    for(int k = 0; k< prevGenerationsCount; k++) {
                             if (nextGeneration[i, j] != prevGenerations[k][i, j])
                                 isLoop[k] = false;
-                        }
+                    }
                     if (isDead && nextGeneration[i, j])
                         isDead = false;
                 }

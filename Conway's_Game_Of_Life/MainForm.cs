@@ -125,27 +125,29 @@ namespace Conway_s_Game_Of_Life
 
         private void picbGenerationMap_Paint(object sender, PaintEventArgs e)
         {
-            refreshSync.Reset();
+            
             MapRenderer.RenderMapF(e.Graphics, game, layout, style);
+            refreshSync.Wait();
             if (threadSync.IsSet && game.State != Game.GameStates.Alive) {
                 switch (game.State) {
                     case Game.GameStates.Dead: {
-                                dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsDeadMessage);
+                            threadSync.Reset();
+                            dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsDeadMessage);
                             break;
                         }
                     case Game.GameStates.Loop: {
-                                dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsLoopMessage);
+                            threadSync.Reset();
+                            dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsLoopMessage);
                             break;
                         }
                     case Game.GameStates.Stable: {
-                                dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsStableMessage);
+                            threadSync.Reset();
+                            dialogAlreadyShown = MessageBox.Show(Properties.Settings.Default.colonyIsStableMessage);
                             break;
                         }
                 }
-                threadSync.Reset();
                 pbStartStop.Text = pbStartStopStatus[0];
             }
-            refreshSync.Set();
         }
 
 
@@ -169,7 +171,9 @@ namespace Conway_s_Game_Of_Life
                 Thread.Sleep(interval.Value);
                 refreshSync.Wait();
                 threadSync.Wait(); // Повторное прерывание для более быстрой остановки
+                refreshSync.Reset();
                 game.NextGeneration();
+                refreshSync.Set();
                 BeginInvoke(new RefreshForm(Refresh));
             }
 
@@ -218,7 +222,10 @@ namespace Conway_s_Game_Of_Life
         {
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
-            game = GameFile.LoadGameMap(openFileDialog.FileName);
+            Game newgame = GameFile.LoadGameMap(openFileDialog.FileName);
+            nudRows.Value = newgame.RowsCount;
+            nudColomns.Value = newgame.ColomnsCount;
+            game = newgame;
             layout = MapRenderer.LayoutSetupF(picbGenerationMap, game, ref style);
             picbGenerationMap.Refresh();
         }

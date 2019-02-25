@@ -12,7 +12,7 @@ namespace Conway_s_Game_Of_Life
         private static byte[] IntToByteArray(int value)
         {
             byte[] result = new byte[sizeof(int)];
-            for (int i = sizeof(int) - 1; i > 0; i--)  {
+            for (int i = sizeof(int) - 1; i >= 0; i--)  {
                 result[i] = (byte)(value & byte.MaxValue);
                 value = value >> 8;
             }
@@ -58,13 +58,14 @@ namespace Conway_s_Game_Of_Life
                 for (int j = 0; j < game.ColomnsCount; j++) {
                     if (game[i, j])
                         buf += 1;
-                    buf = buf << 1;
                     digitsCount++;
                     if (digitsCount >= bufferSize * 8) {
                         file.Write(IntToByteArray(buf), 0, bufferSize);
                         digitsCount = 0;
                         buf = 0;
+                        continue;
                     }
+                    buf = buf << 1;
                 }
             if (digitsCount != 0) {
                 buf = buf << bufferSize * 8 - digitsCount - 1;
@@ -86,9 +87,10 @@ namespace Conway_s_Game_Of_Life
             file.Close();
 
             int[] intMap = ByteArrayToIntArray(buf);
-            Game game = new Game(RowsAndColomns[0], RowsAndColomns[1]);
-
-            game.GameMap = IntArrayToBoolMap(intMap, RowsAndColomns[0], RowsAndColomns[1]);
+            Game game = new Game(RowsAndColomns[0], RowsAndColomns[1])
+            {
+                GameMap = IntArrayToBoolMap(intMap, RowsAndColomns[0], RowsAndColomns[1])
+            };
 
             return game;
         }
@@ -97,14 +99,15 @@ namespace Conway_s_Game_Of_Life
         {
             bool[,] map = new bool[rows, colomns];
             int currentNumber = 0;
-            int currentBit = int.MinValue;
+            const uint startBit = 0b1000_0000_0000_0000_0000_0000_0000_0000;
+            uint currentBit = startBit;
             byte bitCount = 0;
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < colomns; j++) {
                     if(bitCount >= sizeof(int) * 8) {
                         bitCount = 0;
                         currentNumber++;
-                        currentBit = int.MinValue;
+                        currentBit = startBit;
                     }
                     if (currentNumber >= intMap.Length)
                         return map;
