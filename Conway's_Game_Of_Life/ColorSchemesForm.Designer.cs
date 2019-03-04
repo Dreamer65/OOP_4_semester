@@ -32,14 +32,15 @@
             this.lbGrid = new System.Windows.Forms.Label();
             this.rbGridOn = new System.Windows.Forms.RadioButton();
             this.rbGridOff = new System.Windows.Forms.RadioButton();
+            this.colbGridColor = new Conway_s_Game_Of_Life.ColorBox();
             this.pbOk = new System.Windows.Forms.Button();
             this.pbCancel = new System.Windows.Forms.Button();
             this.pbGetDefoult = new System.Windows.Forms.Button();
             this.cbUseStyleAtStartup = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.colbGridColor = new Conway_s_Game_Of_Life.ColorBox();
+            this.pbSave = new System.Windows.Forms.Button();
             this.colbDeadCellsColor = new Conway_s_Game_Of_Life.ColorBox();
             this.colbAliveCellsColor = new Conway_s_Game_Of_Life.ColorBox();
+            this.pbLoad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picbPreview)).BeginInit();
             this.gbGrid.SuspendLayout();
             this.SuspendLayout();
@@ -100,10 +101,23 @@
             this.rbGridOff.UseVisualStyleBackColor = true;
             this.rbGridOff.CheckedChanged += new System.EventHandler(this.rbGridOn_CheckedChanged);
             // 
+            // colbGridColor
+            // 
+            this.colbGridColor.Color = System.Drawing.Color.Empty;
+            this.colbGridColor.Labeled = false;
+            this.colbGridColor.LabelText = "";
+            this.colbGridColor.Location = new System.Drawing.Point(6, 49);
+            this.colbGridColor.MaximumSize = new System.Drawing.Size(300, 27);
+            this.colbGridColor.MinimumSize = new System.Drawing.Size(210, 27);
+            this.colbGridColor.Name = "colbGridColor";
+            this.colbGridColor.Size = new System.Drawing.Size(235, 27);
+            this.colbGridColor.TabIndex = 0;
+            this.colbGridColor.ColorChenged += new System.EventHandler<Conway_s_Game_Of_Life.ColorBox.ColorChengedEventArgs>(this.colbGridColor_ColorChenged);
+            // 
             // pbOk
             // 
             this.pbOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbOk.Location = new System.Drawing.Point(305, 238);
+            this.pbOk.Location = new System.Drawing.Point(305, 242);
             this.pbOk.Name = "pbOk";
             this.pbOk.Size = new System.Drawing.Size(78, 23);
             this.pbOk.TabIndex = 4;
@@ -114,7 +128,7 @@
             // pbCancel
             // 
             this.pbCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbCancel.Location = new System.Drawing.Point(389, 238);
+            this.pbCancel.Location = new System.Drawing.Point(389, 242);
             this.pbCancel.Name = "pbCancel";
             this.pbCancel.Size = new System.Drawing.Size(79, 23);
             this.pbCancel.TabIndex = 4;
@@ -126,7 +140,7 @@
             // 
             this.pbGetDefoult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pbGetDefoult.Enabled = false;
-            this.pbGetDefoult.Location = new System.Drawing.Point(146, 238);
+            this.pbGetDefoult.Location = new System.Drawing.Point(153, 242);
             this.pbGetDefoult.Name = "pbGetDefoult";
             this.pbGetDefoult.Size = new System.Drawing.Size(110, 23);
             this.pbGetDefoult.TabIndex = 5;
@@ -144,27 +158,15 @@
             this.cbUseStyleAtStartup.Text = "Использовать данный стиль при запуске";
             this.cbUseStyleAtStartup.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // pbSave
             // 
-            this.button1.Location = new System.Drawing.Point(12, 238);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Загрузить...";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // colbGridColor
-            // 
-            this.colbGridColor.Color = System.Drawing.Color.Empty;
-            this.colbGridColor.Labeled = false;
-            this.colbGridColor.LabelText = "";
-            this.colbGridColor.Location = new System.Drawing.Point(6, 49);
-            this.colbGridColor.MaximumSize = new System.Drawing.Size(300, 27);
-            this.colbGridColor.MinimumSize = new System.Drawing.Size(210, 27);
-            this.colbGridColor.Name = "colbGridColor";
-            this.colbGridColor.Size = new System.Drawing.Size(235, 27);
-            this.colbGridColor.TabIndex = 0;
-            this.colbGridColor.ColorChenged += new System.EventHandler<Conway_s_Game_Of_Life.ColorBox.ColorChengedEventArgs>(this.colbGridColor_ColorChenged);
+            this.pbSave.Location = new System.Drawing.Point(12, 213);
+            this.pbSave.Name = "pbSave";
+            this.pbSave.Size = new System.Drawing.Size(92, 23);
+            this.pbSave.TabIndex = 7;
+            this.pbSave.Text = "Сохранить";
+            this.pbSave.UseVisualStyleBackColor = true;
+            this.pbSave.Click += new System.EventHandler(this.pbSave_Click);
             // 
             // colbDeadCellsColor
             // 
@@ -194,12 +196,22 @@
             this.colbAliveCellsColor.TabIndex = 1;
             this.colbAliveCellsColor.ColorChenged += new System.EventHandler<Conway_s_Game_Of_Life.ColorBox.ColorChengedEventArgs>(this.colbAliveCellsColor_ColorChenged);
             // 
+            // pbLoad
+            // 
+            this.pbLoad.Location = new System.Drawing.Point(12, 242);
+            this.pbLoad.Name = "pbLoad";
+            this.pbLoad.Size = new System.Drawing.Size(92, 23);
+            this.pbLoad.TabIndex = 7;
+            this.pbLoad.Text = "Загрузить";
+            this.pbLoad.UseVisualStyleBackColor = true;
+            // 
             // ColorSchemesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 272);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pbLoad);
+            this.Controls.Add(this.pbSave);
             this.Controls.Add(this.cbUseStyleAtStartup);
             this.Controls.Add(this.pbGetDefoult);
             this.Controls.Add(this.pbCancel);
@@ -235,6 +247,7 @@
         private System.Windows.Forms.Button pbGetDefoult;
         private System.Windows.Forms.CheckBox cbUseStyleAtStartup;
         private System.Windows.Forms.Label lbGrid;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button pbSave;
+        private System.Windows.Forms.Button pbLoad;
     }
 }

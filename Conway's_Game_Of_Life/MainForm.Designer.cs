@@ -237,19 +237,19 @@
             // mbColorSchemes
             // 
             this.mbColorSchemes.Name = "mbColorSchemes";
-            this.mbColorSchemes.Size = new System.Drawing.Size(166, 22);
+            this.mbColorSchemes.Size = new System.Drawing.Size(180, 22);
             this.mbColorSchemes.Text = "Цветовые схемы";
             this.mbColorSchemes.Click += new System.EventHandler(this.mbSetitngs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // mbAbout
             // 
             this.mbAbout.Name = "mbAbout";
-            this.mbAbout.Size = new System.Drawing.Size(166, 22);
+            this.mbAbout.Size = new System.Drawing.Size(180, 22);
             this.mbAbout.Text = "О программе";
             // 
             // lbSpeed

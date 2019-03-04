@@ -215,14 +215,14 @@ namespace Conway_s_Game_Of_Life
         {
             if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 return;
-            GameFile.SaveGameMap(saveFileDialog.FileName, game);
+            File.SaveGameMap(saveFileDialog.FileName, game);
         }
 
         private void mbLoad_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
-            Game newgame = GameFile.LoadGameMap(openFileDialog.FileName);
+            Game newgame = File.LoadGameMap(openFileDialog.FileName);
             nudRows.Value = newgame.RowsCount;
             nudColomns.Value = newgame.ColomnsCount;
             game = newgame;

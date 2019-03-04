@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Conway_s_Game_Of_Life
 {
-    static class GameFile
+    static class File
     {
         private static byte[] IntToByteArray(int value)
         {
@@ -117,6 +118,30 @@ namespace Conway_s_Game_Of_Life
                     bitCount++;
                 }
             return map;
+        }
+
+        private static string NameOf(object obj, [CallerMemberName] string name = "")
+        {
+            return name;
+        }
+
+        public static void SaveStyle(string filename, MapRenderer.Style style)
+        {
+            FileStream f = new FileStream(filename, FileMode.Create);
+            StreamWriter writer = new StreamWriter(f);
+
+            writer.WriteLine("GridIsOn={0}", style.GridIsOn.ToString());
+            writer.WriteLine("GridColor={0}", style.Grid.Color.Name.ToString());
+            writer.WriteLine("AliveCellColor={0}", style.AliveCell.Color.Name.ToString());
+            writer.WriteLine("DeadCellColor={0}", style.DeadCell.Color.Name.ToString());
+
+            writer.Close();
+            /*
+            Properties.Settings.Default.gridIsOn = style.GridIsOn;
+            Properties.Settings.Default.gridColor = style.Grid.Color;
+            Properties.Settings.Default.aliveCellColor = style.AliveCell.Color;
+            Properties.Settings.Default.deathCellColor = style.DeadCell.Color;
+            Properties.Settings.Default.defoultStyle = style.DefoultStyle;*/
         }
     }
 }

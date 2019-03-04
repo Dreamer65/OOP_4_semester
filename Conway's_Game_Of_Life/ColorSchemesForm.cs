@@ -131,5 +131,13 @@ namespace Conway_s_Game_Of_Life
             layout = MapRenderer.LayoutSetupF(picbPreview, game, ref style);
             MapRenderer.RenderMapF(e.Graphics, game, layout, style);
         }
+
+        private void pbSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+            File.SaveStyle(dialog.FileName, style);
+        }
     }
 }
