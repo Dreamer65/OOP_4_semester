@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Runtime.CompilerServices;
+using System.Drawing;
+
 
 namespace Conway_s_Game_Of_Life
 {
@@ -119,11 +120,7 @@ namespace Conway_s_Game_Of_Life
                 }
             return map;
         }
-
-        private static string NameOf(object obj, [CallerMemberName] string name = "")
-        {
-            return name;
-        }
+        
 
         public static void SaveStyle(string filename, MapRenderer.Style style)
         {
@@ -131,17 +128,54 @@ namespace Conway_s_Game_Of_Life
             StreamWriter writer = new StreamWriter(f);
 
             writer.WriteLine("GridIsOn={0}", style.GridIsOn.ToString());
-            writer.WriteLine("GridColor={0}", style.Grid.Color.Name.ToString());
-            writer.WriteLine("AliveCellColor={0}", style.AliveCell.Color.Name.ToString());
-            writer.WriteLine("DeadCellColor={0}", style.DeadCell.Color.Name.ToString());
+            writer.WriteLine("GridColor={0}", style.Grid.Color.Name);
+            writer.WriteLine("AliveCellColor={0}", style.AliveCell.Color.Name);
+            writer.WriteLine("DeadCellColor={0}", style.DeadCell.Color.Name);
 
             writer.Close();
-            /*
-            Properties.Settings.Default.gridIsOn = style.GridIsOn;
-            Properties.Settings.Default.gridColor = style.Grid.Color;
-            Properties.Settings.Default.aliveCellColor = style.AliveCell.Color;
-            Properties.Settings.Default.deathCellColor = style.DeadCell.Color;
-            Properties.Settings.Default.defoultStyle = style.DefoultStyle;*/
+        }
+
+        private static void SetStyleAtribute(ref MapRenderer.Style style, string str)
+        {
+            string[] args = str.Split('=');
+            if (args.Length < 2)
+                return;
+            string value = args[1];
+            switch (args[0]) {
+                case "GridIsOn": {
+                        if(!bool.TryParse(value, out bool result)) {
+                            style.GridIsOn = false;
+                            break;
+                        }
+                        style.GridIsOn = result;
+                        break;
+                    }
+                case "GridColor": {
+                        style.GridColor = Color.FromName(value);
+                        break;
+                    }
+                case "AliveCellColor": {
+                        style.AliveCellColor = Color.FromName(value);
+                        break;
+                    }
+                case "DeadCellColor": {
+                        style.DeadCellColor = Color.FromName(value);
+                        break;
+                    }
+            }
+        }
+
+        public static void LoadStyle(string filename, ref MapRenderer.Style style)
+        {
+            FileStream f = new FileStream(filename, FileMode.Open);
+            StreamReader reader = new StreamReader(f);
+            string str;
+
+            while (!reader.EndOfStream) {
+                str = reader.ReadLine();
+                SetStyleAtribute(ref style, str);
+            }
+            reader.Close();
         }
     }
 }

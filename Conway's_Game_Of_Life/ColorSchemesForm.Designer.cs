@@ -204,6 +204,7 @@
             this.pbLoad.TabIndex = 7;
             this.pbLoad.Text = "Загрузить";
             this.pbLoad.UseVisualStyleBackColor = true;
+            this.pbLoad.Click += new System.EventHandler(this.pbLoad_Click);
             // 
             // ColorSchemesForm
             // 

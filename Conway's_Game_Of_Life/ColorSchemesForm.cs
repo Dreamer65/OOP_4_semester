@@ -139,5 +139,19 @@ namespace Conway_s_Game_Of_Life
                 return;
             File.SaveStyle(dialog.FileName, style);
         }
+
+        private void pbLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+            try {
+                File.LoadStyle(dialog.FileName, ref style);
+            }
+            catch {
+                MessageBox.Show("Произошла ошибка.");
+            }
+            Style = style;
+        }
     }
 }

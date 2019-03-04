@@ -146,6 +146,8 @@ namespace Conway_s_Game_Of_Life
                             break;
                         }
                 }
+                nudColomns.Enabled = true;
+                nudRows.Enabled = true;
                 pbStartStop.Text = pbStartStopStatus[0];
             }
         }
@@ -198,7 +200,8 @@ namespace Conway_s_Game_Of_Life
         {
             game.Random();
             picbGenerationMap.Refresh();
-            pbStartStop.Text = pbStartStopStatus[0]; 
+            if (!threadSync.IsSet)
+                pbStartStop.Text = pbStartStopStatus[0]; 
         }
 
         private void mbSetitngs_Click(object sender, EventArgs e)
