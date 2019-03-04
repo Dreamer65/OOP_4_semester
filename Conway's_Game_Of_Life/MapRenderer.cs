@@ -1,9 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 
@@ -41,12 +38,13 @@ namespace Conway_s_Game_Of_Life
             return new Point((int)((x<0)?-1:x), (int)((y < 0) ? -1 : y));
         }
 
+        /*
         public static void RenderSelectedCellF(Graphics graphics, Game map, LayoutF layout, Style style, int row, int colomn)
         {
             PointF location = RealLocationF(layout, style, row, colomn);
             graphics.FillRectangle(style[map[row, colomn]],
                 location.X, location.Y, layout.cellSize.Width, layout.cellSize.Height);
-        }
+        }*/
 
         public static void RenderMapF(Graphics graphics, Game map, LayoutF layout, Style style)
         {
